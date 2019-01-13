@@ -13,8 +13,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     GitHubApiUtil.cpp \
-    QNetWorker.cpp
+    QNetWorker.cpp \
+    QManager.cpp \
+    QInterface.cpp
 
 HEADERS += \
     GitHubApiUtil.h \
-    QNetWorker.h
+    QNetWorker.h \
+    QManager.h \
+    QInterface.h
