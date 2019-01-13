@@ -2,7 +2,7 @@
 
 [英语/English](README.md)
 
-> c++ Qt5实现的自动生成 `GitHub` 个人报告例子.
+> c++ Qt5 实现的自动生成 `GitHub` 个人报告例子.
 
 ## 使用指南
 
@@ -31,4 +31,6 @@
 ## 授权协议
 
 
-这个项目 `Apache License 2.0` 协议， 请点击 [LICENSE](LICENSE) 了解更多细节。
+这个项目 `Apache License 2.0` 协议， 请点击 [LICENSE](LICENSE) 了解更多细节
+
+## 致谢
