@@ -17,7 +17,7 @@ class GitHubApiUtil::PrivateData
 public:
     PrivateData();
 
-    bool initApiInfo(const QString &strFilePath);
+    bool initApiInfo(const QString &strUserName);
 
     bool isValid(int nType);
 
@@ -56,55 +56,19 @@ QString GitHubApiUtil::PrivateData::convertApiTypeToStrInfo(GitHubApiUtil::GITHU
     return "";
 }
 
-bool GitHubApiUtil::PrivateData::initApiInfo(const QString &strFilePath)
+bool GitHubApiUtil::PrivateData::initApiInfo(const QString &strUserName)
 {
-    QFile file(strFilePath);
-    if (!file.exists ())
+    if ( strUserName.isEmpty ())
     {
-        m_vtrApiInfo[GitHubApiUtil::GitHub_Type_UsersInfo] = "https://api.github.com/users/your_Name";
-        m_vtrApiInfo[GitHubApiUtil::GitHub_Type_AllReposInfos] = "https://api.github.com/users/your_Name/repos";
-
-        if (file.open (QFile::WriteOnly))
-        {
-            QVariantMap vrtMap;
-
-            for ( int i = 0; i < m_vtrApiInfo.size (); i++)
-            {
-                vrtMap.insert ( convertApiTypeToStrInfo ( GitHubApiUtil::GITHUB_INFO_TYPE(i)), m_vtrApiInfo.at (i));
-            }
-
-            QJsonDocument doc = QJsonDocument::fromVariant (vrtMap);
-            QByteArray array = doc.toJson ();
-            file.write (array);
-            file.close ();
-        }
-        else
-        {
-            qWarning()<<"write| open file error:"<<strFilePath<<file.errorString ();
-        }
-
-        return true;
-    }
-
-    if (!file.open (QFile::ReadOnly))
-    {
-        qWarning()<<"open file error:"<<strFilePath<<file.errorString ();
+        qWarning()<<"error strUserName is empty!";
         return false;
     }
 
-    QByteArray jsonArray = file.readAll ();
-    file.close ();
+    m_strUserName = strUserName;
 
-    QJsonParseError error;
-    QJsonDocument doc = QJsonDocument::fromJson (jsonArray, &error);
-    if (doc.isEmpty () || error.error != QJsonParseError::NoError)
-    {
-        qWarning()<<"initApiInfo file error:"<<strFilePath<<error.errorString ();
-        return false;
-    }
-
-    m_vtrApiInfo.resize (GitHub_Type_Size);
-    m_vtrApiInfo[GitHub_Type_UsersInfo] = doc[convertApiTypeToStrInfo(GitHub_Type_UsersInfo)].toString ();
+    m_vtrApiInfo[GitHubApiUtil::GitHub_Type_UsersInfo] = QString("https://api.github.com/users/%1").arg (m_strUserName);
+    m_vtrApiInfo[GitHubApiUtil::GitHub_Type_AllReposInfos] =  QString("https://api.github.com/users/%1/repos").arg (m_strUserName);
+    m_vtrApiInfo[GitHubApiUtil::GitHub_Type_SingleReposInfo] =  QString("https://api.github.com/repos/users/%1").arg (m_strUserName);
 
     return true;
 }
@@ -114,9 +78,6 @@ GitHubApiUtil::GitHubApiUtil(QObject *parent)
     : QObject(parent),
       d(new GitHubApiUtil::PrivateData)
 {
-    d->initApiInfo (QString("%1/%2")
-                    .arg (QCoreApplication::applicationDirPath ())
-                    .arg (CONFIG_FILE_NAME));
 }
 
 GitHubApiUtil::~GitHubApiUtil()
@@ -130,7 +91,7 @@ GitHubApiUtil::~GitHubApiUtil()
 
 void GitHubApiUtil::setUserName(const QString &strUserName)
 {
-    d->m_strUserName = strUserName;
+    d->initApiInfo (strUserName);
 }
 
 
@@ -142,9 +103,49 @@ bool GitHubApiUtil::getGitHubInfos(GitHubApiUtil::GITHUB_INFO_TYPE eType, QStrin
         return false;
     }
 
-    strJsonInfo = QString(d->m_pNewWorker->get (QString("%1/%2")
-                                                .arg (d->m_vtrApiInfo.at (eType))
-                                                .arg (d->m_strUserName)));
+    strJsonInfo = QString(d->m_pNewWorker->get (d->m_vtrApiInfo.at (eType)));
+
+    return true;
+}
+
+bool GitHubApiUtil::getGitHubUserInfo( QString &strJsonInfo)
+{
+    if ( !d->isValid (GitHubApiUtil::GitHub_Type_UsersInfo))
+    {
+        strJsonInfo = "";
+        return false;
+    }
+
+    strJsonInfo = QString(d->m_pNewWorker->get (d->m_vtrApiInfo.at (GitHubApiUtil::GitHub_Type_UsersInfo)));
+
+    return true;
+}
+
+bool GitHubApiUtil::getGitHubAllReposInfo(QString &strJsonInfo)
+{
+    if ( !d->isValid (GitHubApiUtil::GitHub_Type_AllReposInfos))
+    {
+        strJsonInfo = "";
+        return false;
+    }
+
+    strJsonInfo = QString(d->m_pNewWorker->get (d->m_vtrApiInfo.at (GitHubApiUtil::GitHub_Type_AllReposInfos)));
+
+    return true;
+}
+
+bool GitHubApiUtil::getGitHubSingleReposInfo(const QString &strReosName, QString &strJsonInfo)
+{
+    if ( !d->isValid (GitHubApiUtil::GitHub_Type_SingleReposInfo))
+    {
+        strJsonInfo = "";
+        return false;
+    }
+
+    d->m_vtrApiInfo[GitHubApiUtil::GitHub_Type_SingleReposInfo] =  QString("%1/%2")
+            .arg (GitHubApiUtil::GitHub_Type_SingleReposInfo).arg (strReosName);
+
+    strJsonInfo = QString(d->m_pNewWorker->get (d->m_vtrApiInfo.at (GitHubApiUtil::GitHub_Type_SingleReposInfo)));
 
     return true;
 }

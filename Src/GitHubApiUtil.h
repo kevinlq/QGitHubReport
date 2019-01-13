@@ -30,6 +30,7 @@ public:
     {
         GitHub_Type_UsersInfo,         /// < user info
         GitHub_Type_AllReposInfos,     /// < all response info
+        GitHub_Type_SingleReposInfo,   /// < single response info
         GitHub_Type_Size
     };
 
@@ -52,6 +53,27 @@ public:
       * \return returns true if the request is ok; otherwise returns false.
     */
     bool getGitHubInfos(GITHUB_INFO_TYPE eType, QString &strJsonInfo);
+
+    /**
+      * \brief get your GitHub user info.
+      * \param strJsonInfo. your GitHub info, json format data
+      * \return returns true if the request is ok; otherwise returns false.
+    */
+    bool getGitHubUserInfo( QString &strJsonInfo);
+
+    /**
+      * \brief get your GitHub all repositories info.
+      * \param strJsonInfo. your GitHub info, json format data
+      * \return returns true if the request is ok; otherwise returns false.
+    */
+    bool getGitHubAllReposInfo(QString &strJsonInfo);
+
+    /**
+      * \brief get your GitHub single repositories info.
+      * \param strJsonInfo. your GitHub single repositories info, json format data
+      * \return returns true if the request is ok; otherwise returns false.
+    */
+    bool getGitHubSingleReposInfo(const QString &strReosName, QString &strJsonInfo);
 
 private:
     class PrivateData;
