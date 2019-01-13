@@ -1,0 +1,41 @@
+https://www.devbean.net/2013/10/qt-study-road-2-access-network-1/
+
+https://yalishizhude.github.io/2017/12/23/github-summary/
+
+
+api
+https://segmentfault.com/a/1190000015144126
+
+{
+  "login": "kevinlq",
+  "id": 12824316,
+  "node_id": "MDQ6VXNlcjEyODI0MzE2",
+  "avatar_url": "https://avatars2.githubusercontent.com/u/12824316?v=4",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/kevinlq",
+  "html_url": "https://github.com/kevinlq",
+  "followers_url": "https://api.github.com/users/kevinlq/followers",
+  "following_url": "https://api.github.com/users/kevinlq/following{/other_user}",
+  "gists_url": "https://api.github.com/users/kevinlq/gists{/gist_id}",
+  "starred_url": "https://api.github.com/users/kevinlq/starred{/owner}{/repo}",
+  "subscriptions_url": "https://api.github.com/users/kevinlq/subscriptions",
+  "organizations_url": "https://api.github.com/users/kevinlq/orgs",
+  "repos_url": "https://api.github.com/users/kevinlq/repos",
+  "events_url": "https://api.github.com/users/kevinlq/events{/privacy}",
+  "received_events_url": "https://api.github.com/users/kevinlq/received_events",
+  "type": "User",
+  "site_admin": false,
+  "name": "devstone",
+  "company": null,
+  "blog": "http://kevinlq.com/",
+  "location": "XiAn China",
+  "email": null,
+  "hireable": null,
+  "bio": "Qt/C/C++ lovers",
+  "public_repos": 70,
+  "public_gists": 0,
+  "followers": 70,
+  "following": 28,
+  "created_at": "2015-06-10T04:47:21Z",
+  "updated_at": "2018-12-30T11:41:33Z"
+}

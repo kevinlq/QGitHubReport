@@ -1,0 +1,24 @@
+Simple C++ Qt5
+QGitHubReport
+C++ Qt5 implementation of the GitHub Report Demo
+
+c++ Qt5 实现的自动生成 GitHub 个人报告例子
+
+
+开源协议选择博客：
+http://www.gcssloop.com/tips/choose-license
+http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html
+
+官方：
+https://choosealicense.com/
+
+//T代表后面跟着时间，Z代表UTC统一时间
+
+"date": "2019-01-13T03:29:20Z"
+
+
+
+
+
+
+
