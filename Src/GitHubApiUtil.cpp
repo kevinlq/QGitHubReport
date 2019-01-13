@@ -80,6 +80,12 @@ GitHubApiUtil::GitHubApiUtil(QObject *parent)
 {
 }
 
+GitHubApiUtil *GitHubApiUtil::instance()
+{
+    static GitHubApiUtil  instance;
+    return &instance;
+}
+
 GitHubApiUtil::~GitHubApiUtil()
 {
     if (d)

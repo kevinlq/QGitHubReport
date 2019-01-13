@@ -22,7 +22,14 @@
 class GitHubApiUtil : public QObject
 {
     Q_OBJECT
+
+private:
+    /// Create an GitHubApiUtil with the default intial values
+    explicit GitHubApiUtil(QObject *parent = nullptr);
+
 public:
+    static GitHubApiUtil * instance();
+
     /**
      * GitHub info type set.
      */
@@ -33,9 +40,6 @@ public:
         GitHub_Type_SingleReposInfo,   /// < single response info
         GitHub_Type_Size
     };
-
-    /// Create an GitHubApiUtil with the default intial values
-    explicit GitHubApiUtil(QObject *parent = nullptr);
 
     ///  Destruct GitHubApiUtil
     ~GitHubApiUtil();
