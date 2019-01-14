@@ -45,7 +45,7 @@ QNetWorker::~QNetWorker()
     d = Q_NULLPTR;
 }
 
-QByteArray QNetWorker::get(const QString &strUrl)
+QByteArray QNetWorker::get(const QString &strUrl, const int nMsec)
 {
     QTimer timer;
     timer.setSingleShot (true);
@@ -64,7 +64,7 @@ QByteArray QNetWorker::get(const QString &strUrl)
         arrayResult=  pReply->readAll ();
     });
 
-    timer.start (5000); /// 5 secs . timeout
+    timer.start (nMsec); /// <5 secs . timeout
     eventLoop.exec ();
 
     if(!timer.isActive ())
@@ -72,7 +72,7 @@ QByteArray QNetWorker::get(const QString &strUrl)
         timer.stop ();
     }
 
-    pReply->deleteLater (); /// ! delete pReply
+    pReply->deleteLater (); /// < delete pReply
 
     return arrayResult;
 }

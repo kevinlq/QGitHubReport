@@ -13,7 +13,13 @@ public:
 
     ~QNetWorker();
 
-    QByteArray get( const QString &strUrl);
+    /**
+      *\breaf get http result.
+      * \param strUrl url.
+      * \param nMsec timeout default 5s.
+      * \return the result
+    */
+    QByteArray get(const QString &strUrl, const int nMsec = 5000);
 
 Q_SIGNALS:
 //    void finished(QNetworkReply *reply);

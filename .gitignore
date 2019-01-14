@@ -39,6 +39,7 @@
 *.Release
 
 Bin/
+tempFiles/
 
 # QML
 *.qmlc

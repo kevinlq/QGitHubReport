@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtQuick.Controls 2.2
+import QtQuick.Controls 1.4
 import QtQuick.Window 2.2
 
 import "./MaterialUI"
@@ -13,6 +13,8 @@ Window {
     width: 800;
     height: 680;
     visible: true;
+    //flags: Qt.FramelessWindowHint|Qt.Window|Qt.WindowMinMaxButtonsHint;
+    title: qsTr("Demo");
 
     Component.onCompleted:
     {
@@ -29,7 +31,7 @@ Window {
         id: time;
         interval: 1500;
         repeat: false;
-        running: true;
+        running: false;
 
         onTriggered: {
             materialUI.hideLoading();
