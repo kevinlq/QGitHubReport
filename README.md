@@ -4,6 +4,12 @@
 
 > c++ Qt5 implementation of the automatic generation of `GitHub` personal report examples.
 
+## Results
+|Rank| Time|speed |
+|--|--|--|
+|0 | 20190111|![29.0163%](http://progressed.io/bar/29)|
+
+
 ## Getting Started 
 
 ### Prerequisites
